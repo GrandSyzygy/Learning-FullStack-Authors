@@ -13,6 +13,7 @@ const app = express()
 const expressLayouts = require('express-ejs-layouts')
 
 const indexRouter = require('./routes/index')
+const authorRouter = require('./routes/authors')
 
 // ///////////////////////
 // configure express app
@@ -25,6 +26,9 @@ app.set('layout', 'layouts/layout')
 app.use(expressLayouts)
 // location of public files
 app.use(express.static('public'))
+// set up body-parser
+app.use(express.urlencoded({ extended: true }))
+app.use(express.json())
 
 // //////////////
 // configure DB
@@ -42,6 +46,7 @@ db.once('open', () => console.log('Connected to Mongoose'))
 
 // set up our router
 app.use('/', indexRouter)
+app.use('/authors', authorRouter)
 
 // ////////////////
 // listen on PORT
