@@ -11,6 +11,7 @@ if(process.env.NODE_ENV !== 'production') {
 const express = require('express')
 const app = express()
 const expressLayouts = require('express-ejs-layouts')
+const methodOverride = require('method-override')
 
 const indexRouter = require('./routes/index')
 const authorRouter = require('./routes/authors')
@@ -25,6 +26,8 @@ app.set('views', __dirname + '/views')
 // location of layouts
 app.set('layout', 'layouts/layout')
 app.use(expressLayouts)
+// allow the browser to use put and delete req
+app.use(methodOverride('_method'))
 // location of public files
 app.use(express.static('public'))
 // set up body-parser
